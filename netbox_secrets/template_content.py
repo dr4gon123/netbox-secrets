@@ -54,6 +54,7 @@ def tab_view(_model):
         table = SecretTable
         filterset = SecretFilterSet
         filterset_form = SecretFilterForm
+        template_name = 'netbox_secrets/secret_children.html'
         tab = ViewTab(
             label='Secrets',
             badge=lambda obj: obj.secrets.count(),
@@ -90,7 +91,6 @@ try:
         display = get_display_on(app_model)
 
         if display == 'tab_view':
-            template_extensions.append(secret_add_button(app_model))
             tab_view(ContentType.objects.get(app_label=app_label, model=model).model_class())
         else:
             dynamic_klass = type(
